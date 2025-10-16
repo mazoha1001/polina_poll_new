@@ -6,10 +6,10 @@ COPY build.gradle .
 COPY settings.gradle .
 COPY src src
 RUN chmod +x ./gradlew
-RUN ./gradlew bootJar --no-daemon
+RUN ./gradlew bootWar --no-daemon
 
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=build /app/build/libs/*.war app.war
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar","app.war"]
